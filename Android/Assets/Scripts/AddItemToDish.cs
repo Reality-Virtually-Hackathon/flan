@@ -42,7 +42,6 @@ public class AddItemToDish : MonoBehaviour
                 if (gameObject.GetComponent<MenuItemManager>().canAddTwo)
                 {
                     gameObject.GetComponent<AddItemToDish>().enabled = false;
-                    Debug.Log("...");
                     GameObject seconds = Instantiate(gameObject);
                     Destroy(seconds.GetComponent<AddItemToDish>());
                     seconds.name = gameObject.name;
