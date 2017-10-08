@@ -37,3 +37,15 @@ Lucas Callado
 Nathan Dass  
 Shweta Oak  
 Zahin Ali
+
+### UI
+
+![Home](/UI/Home.png)
+![Profile](/UI/Profile.png)
+![Dashboard](/UI/Dashboard.png)
+![Menu](/UI/Menu.png)
+![View](/UI/View.png)
+![Build](/UI/Build.png)
+![Modify](/UI/Modify.png)
+![Checkout](/UI/Checkout.png)
+![Build-Album](/UI/Build-Album.png)
