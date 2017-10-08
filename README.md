@@ -30,8 +30,8 @@ ARCore, photogrammetry, collaborated filtering for the recommendation engine.
 Continue to build features using ARCore and enhancing the 3d models for other restaurants.
 
 ### Team:
-Keith Bradley
-Lucas Callado
-Nathan Dass
-Shweta Oak
+Keith Bradley  
+Lucas Callado  
+Nathan Dass  
+Shweta Oak  
 Zahin Ali
