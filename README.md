@@ -40,12 +40,12 @@ Zahin Ali
 
 ### UI
 
-![Home](/UI/Home.png){:style="width:270px; height:480px;"}
-![Profile](/UI/Profile.png){:style="width:270px; height:480px;"}
-![Dashboard](/UI/Dashboard.png){:style="width:270px; height:480px;"}
-![Menu](/UI/Menu.png){:style="width:270px; height:480px;"}
-![View](/UI/View.png){:style="width:270px; height:480px;"}
-![Build](/UI/Build.png){:style="width:270px; height:480px;"}
-![Modify](/UI/Modify.png){:style="width:270px; height:480px;"}
-![Checkout](/UI/Checkout.png){:style="width:270px; height:480px;"}
-![Build-Album](/UI/Build-Album.png){:style="width:270px; height:480px;"}
+![Home](/UI/Home.png)
+![Profile](/UI/Profile.png)
+![Dashboard](/UI/Dashboard.png)
+![Menu](/UI/Menu.png)
+![View](/UI/View.png)
+![Build](/UI/Build.png)
+![Modify](/UI/Modify.png)
+![Checkout](/UI/Checkout.png)
+![Build-Album](/UI/Build-Album.png)
