@@ -15,12 +15,10 @@ public class AddItemToDish : MonoBehaviour
     private float startTime;
 
     private float xRadius;
-    private float yRadius;
+    private float yRadius = 3f;
     private float zRadius;
 
     private bool firstHalf = true;
-
-    private float verticalJump = 3f;
 
     private void Start()
     {
@@ -31,12 +29,22 @@ public class AddItemToDish : MonoBehaviour
         endPoint = dish.transform.position;
 
         xRadius = centerPoint.x;
-        yRadius = verticalJump;
         zRadius = centerPoint.z;
 
         startTime = Time.time;
 
-        StartCoroutine(Move());
+        if (dish.transform.Find(gameObject.GetComponent<MenuItemManager>().type).transform.childCount <= 0)
+        {
+            StartCoroutine(Move());
+        }
+        else if (gameObject.GetComponent<MenuItemManager>().type == "Toppings" && dish.GetComponent<DishManager>().numToppings < dish.transform.Find("Toppings").transform.childCount)
+        {
+            StartCoroutine(Move());
+        }
+        else
+        {
+            Debug.Log("Already there!");
+        }
     }
 
     public IEnumerator Move()
@@ -50,6 +58,16 @@ public class AddItemToDish : MonoBehaviour
             yield return null;
         }
         transform.position = endPoint;
+        if (gameObject.GetComponent<MenuItemManager>().type != "Toppings")
+        {
+            transform.parent = dish.transform.Find(gameObject.GetComponent<MenuItemManager>().type);
+        }
+        else
+        {
+            dish.GetComponent<DishManager>().numToppings++;
+            transform.parent = dish.transform.Find("Toppings/Topping " + dish.GetComponent<DishManager>().numToppings);
+        }
+        transform.localPosition = new Vector3(0, 0, 0);
         Destroy(transform.Find("Label").gameObject);
         Destroy(this);
     }
