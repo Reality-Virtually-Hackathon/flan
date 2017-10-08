@@ -69,6 +69,7 @@ public class AddItemToDish : MonoBehaviour
         }
         transform.localPosition = new Vector3(0, 0, 0);
         Destroy(transform.Find("Label").gameObject);
+        Destroy(transform.Find("Glow").gameObject);
         Destroy(this);
     }
 }

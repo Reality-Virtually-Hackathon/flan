@@ -33,6 +33,8 @@ public class MenuItemPrefabs : MonoBehaviour {
     private Dictionary<string, bool> repeat;
     private Dictionary<string, float> prices;
     private Dictionary<string, int> calories;
+    private Dictionary<string, bool> recommended;
+    private Dictionary<string, bool> allergic;
     private Dictionary<string, GameObject> menuItems;
 
     void Start()
@@ -149,6 +151,62 @@ public class MenuItemPrefabs : MonoBehaviour {
             { "Soy Sauce", 125 }
         };
 
+        recommended = new Dictionary<string, bool>()
+        {
+            { "Small Bowl", false },
+            { "Large Bowl", false },
+
+            { "Brown Rice", false },
+            { "Vermicelli Noodles", false },
+            { "White Rice", false },
+
+            { "Beef", false },
+            { "Chicken", false },
+            { "Tofu", false },
+
+            { "Carrots", false },
+            { "Cucumbers", true },
+            { "Do Chua", false },
+            { "Jalapenos", true },
+            { "Peanuts", false },
+            { "Pickled Daikon", false },
+            { "Scallions", true },
+            { "Sprouts", false },
+
+            { "Lime Fish Suace", false },
+            { "Peanut Sauce", false },
+            { "Ponzu Ginger Sauce", true },
+            { "Soy Sauce", false }
+        };
+
+        allergic = new Dictionary<string, bool>()
+        {
+            { "Small Bowl", false },
+            { "Large Bowl", false },
+
+            { "Brown Rice", false },
+            { "Vermicelli Noodles", false },
+            { "White Rice", false },
+
+            { "Beef", false },
+            { "Chicken", false },
+            { "Tofu", false },
+
+            { "Carrots", false },
+            { "Cucumbers", true },
+            { "Do Chua", false },
+            { "Jalapenos", false },
+            { "Peanuts", true },
+            { "Pickled Daikon", false },
+            { "Scallions", false },
+            { "Sprouts", false },
+
+            { "Lime Fish Suace", false },
+            { "Peanut Sauce", true },
+            { "Ponzu Ginger Sauce", false },
+            { "Soy Sauce", false }
+        };
+
         menuItems = new Dictionary<string, GameObject>()
         {
             { "Small Bowl", smallBowl },
@@ -196,6 +254,16 @@ public class MenuItemPrefabs : MonoBehaviour {
     public int GetCalories(string item)
     {
         return calories[item];
+    }
+
+    public bool GetRecommendation(string item)
+    {
+        return recommended[item];
+    }
+
+    public bool GetAllergic(string item)
+    {
+        return allergic[item];
     }
 
     public GameObject GetPrefab(string item)

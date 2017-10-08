@@ -9,6 +9,8 @@ public class MenuItemManager : MonoBehaviour {
     public bool repeat;
     public float price;
     public int calories;
+    public bool recommended;
+    public bool allergic;
     public bool canAddTwo = true;
 
     public int angle = 0;
@@ -27,13 +29,17 @@ public class MenuItemManager : MonoBehaviour {
     {
         item = Instantiate(itemPrefab);
         item.transform.parent = transform;
-        item.transform.localRotation = new Quaternion(0, 0, 0, 0);
         item.transform.localPosition = new Vector3(0, 0, 0);
         item.name = item.name.Replace("(Clone)", "");
         item.layer = LayerMask.NameToLayer("Menu Item");
 
         gameObject.name = item.name;
-        gameObject.transform.Find("Label").GetComponent<TextMesh>().text = "$" + price + "\n" + calories + " Cal";
+        gameObject.transform.Find("Label").GetComponent<TextMesh>().text = gameObject.name + "\n" + calories + " Cal";
+        if (recommended)
+        {
+            gameObject.transform.Find("Glow").GetComponent<Renderer>().enabled = true;
+            gameObject.transform.Find("Label").GetComponent<TextMesh>().color = Color.green;
+        }
     }
 
     public IEnumerator EnterRight()

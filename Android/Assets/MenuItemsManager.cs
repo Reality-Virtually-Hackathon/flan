@@ -87,12 +87,17 @@ public class MenuItemsManager : MonoBehaviour {
         GameObject child = Instantiate(menuItemPrefab);
         child.transform.parent = transform;
 
-        child.GetComponent<MenuItemManager>().itemPrefab = transform.GetComponent<MenuItemPrefabs>().GetPrefab(menu[currentMenuItem][i]);
-        child.GetComponent<MenuItemManager>().angle = 360 - (360 - 30 * (menu[currentMenuItem].Length - 1)) / 2 - 30 * i;
-        child.GetComponent<MenuItemManager>().type = transform.GetComponent<MenuItemPrefabs>().GetType(menu[currentMenuItem][i]);
-        child.GetComponent<MenuItemManager>().repeat = transform.GetComponent<MenuItemPrefabs>().GetRepeat(menu[currentMenuItem][i]);
-        child.GetComponent<MenuItemManager>().price = transform.GetComponent<MenuItemPrefabs>().GetPrice(menu[currentMenuItem][i]);
-        child.GetComponent<MenuItemManager>().calories = transform.GetComponent<MenuItemPrefabs>().GetCalories(menu[currentMenuItem][i]);
+        MenuItemManager manager = child.GetComponent<MenuItemManager>();
+        MenuItemPrefabs prefabs = transform.GetComponent<MenuItemPrefabs>();
+
+        manager.itemPrefab = prefabs.GetPrefab(menu[currentMenuItem][i]);
+        manager.angle = 360 - (360 - 30 * (menu[currentMenuItem].Length - 1)) / 2 - 30 * i;
+        manager.type = prefabs.GetType(menu[currentMenuItem][i]);
+        manager.repeat = prefabs.GetRepeat(menu[currentMenuItem][i]);
+        manager.price = prefabs.GetPrice(menu[currentMenuItem][i]);
+        manager.calories = prefabs.GetCalories(menu[currentMenuItem][i]);
+        manager.recommended = prefabs.GetRecommendation(menu[currentMenuItem][i]);
+        manager.allergic = prefabs.GetAllergic(menu[currentMenuItem][i]);
 
         if (dir == "Left")
         {
