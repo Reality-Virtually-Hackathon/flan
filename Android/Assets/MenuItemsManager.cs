@@ -112,11 +112,11 @@ public class MenuItemsManager : MonoBehaviour {
             yield return new WaitForSeconds(0.1f);
         }
         busy = true;
-        for (int i = 0; i < menu[currentMenuItem].Length; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             if (dir == "Left")
             {
-                StartCoroutine(StartExitMenuItem(menu[currentMenuItem].Length - 1 - i, dir));
+                StartCoroutine(StartExitMenuItem(transform.childCount - 1 - i, dir));
             }
 
             if (dir == "Right")

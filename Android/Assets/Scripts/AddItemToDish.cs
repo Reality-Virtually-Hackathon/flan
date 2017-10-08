@@ -36,7 +36,14 @@ public class AddItemToDish : MonoBehaviour
 
         startTime = Time.time;
 
-        StartCoroutine(Move());
+        if (dish.transform.Find(gameObject.GetComponent<MenuItemManager>().type).transform.childCount <= 0)
+        {
+            StartCoroutine(Move());
+        }
+        else
+        {
+            Debug.Log("Already there!");
+        }
     }
 
     public IEnumerator Move()
@@ -50,6 +57,8 @@ public class AddItemToDish : MonoBehaviour
             yield return null;
         }
         transform.position = endPoint;
+        transform.parent = dish.transform.Find(gameObject.GetComponent<MenuItemManager>().type).transform;
+        transform.localPosition = new Vector3(0, 0, 0);
         Destroy(transform.Find("Label").gameObject);
         Destroy(this);
     }
