@@ -44,7 +44,7 @@ public class MenuItemManager : MonoBehaviour {
         for (int i = 0; i < angle; i+=2)
         {
             float radians = i * Mathf.PI / 180f;
-            transform.position = new Vector3(radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            transform.position = new Vector3(-radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
             yield return null;
         }
     }
@@ -54,7 +54,7 @@ public class MenuItemManager : MonoBehaviour {
         for (int i = angle; i < 360; i += 2)
         {
             float radians = i * Mathf.PI / 180f;
-            transform.position = new Vector3(radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            transform.position = new Vector3(-radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
             yield return null;
         }
         Destroy(gameObject);
