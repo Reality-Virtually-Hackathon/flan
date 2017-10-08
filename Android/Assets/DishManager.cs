@@ -6,6 +6,8 @@ public class DishManager : MonoBehaviour {
 
     public List<string> items;
 
+    public int numToppings = 0;
+
     // Use this for initialization
     void Start () {
         items = new List<string>();
