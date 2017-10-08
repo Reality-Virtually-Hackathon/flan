@@ -5,6 +5,8 @@ using UnityEngine;
 public class MenuItemManager : MonoBehaviour {
 
     public GameObject itemPrefab;
+    public float price;
+    public int calories;
     public bool canAddTwo = true;
 
     public int angle = 0;
@@ -29,6 +31,7 @@ public class MenuItemManager : MonoBehaviour {
         item.layer = LayerMask.NameToLayer("Menu Item");
 
         gameObject.name = item.name;
+        gameObject.transform.Find("Label").GetComponent<TextMesh>().text = "$" + price + "\n" + calories + " Cal";
     }
 
     public IEnumerator EnterRight()
