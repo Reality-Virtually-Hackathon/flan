@@ -6,6 +6,7 @@ public class MenuItemManager : MonoBehaviour {
 
     public GameObject itemPrefab;
     public string type;
+    public bool repeat;
     public float price;
     public int calories;
     public bool canAddTwo = true;

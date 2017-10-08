@@ -30,6 +30,7 @@ public class MenuItemPrefabs : MonoBehaviour {
     public GameObject soySauce;
 
     private Dictionary<string, string> types;
+    private Dictionary<string, bool> repeat;
     private Dictionary<string, float> prices;
     private Dictionary<string, int> calories;
     private Dictionary<string, GameObject> menuItems;
@@ -62,6 +63,34 @@ public class MenuItemPrefabs : MonoBehaviour {
             { "Peanut Sauce", "Sauce" },
             { "Ponzu Ginger Sauce", "Sauce" },
             { "Soy Sauce", "Sauce" }
+        };
+
+        repeat = new Dictionary<string, bool>()
+        {
+            { "Small Bowl", false },
+            { "Large Bowl", false },
+
+            { "Brown Rice", false },
+            { "Vermicelli Noodles", false },
+            { "White Rice", false },
+
+            { "Beef", true },
+            { "Chicken", true },
+            { "Tofu", true },
+
+            { "Carrots", true },
+            { "Cucumbers", true },
+            { "Do Chua", true },
+            { "Jalapenos", true },
+            { "Peanuts", true },
+            { "Pickled Daikon", true },
+            { "Scallions", true },
+            { "Sprouts", true },
+
+            { "Lime Fish Suace", false },
+            { "Peanut Sauce", false },
+            { "Ponzu Ginger Sauce", false },
+            { "Soy Sauce", false }
         };
 
         prices = new Dictionary<string, float>()
@@ -152,6 +181,11 @@ public class MenuItemPrefabs : MonoBehaviour {
     public string GetType(string item)
     {
         return types[item];
+    }
+
+    public bool GetRepeat(string item)
+    {
+        return repeat[item];
     }
 
     public float GetPrice(string item)
