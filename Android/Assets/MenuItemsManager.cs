@@ -7,7 +7,7 @@ public class MenuItemsManager : MonoBehaviour {
     public GameObject menuItemPrefab;
 
     private Dictionary<int, string[]> menu = new Dictionary<int, string[]>();
-    private int currentMenuItem = 0;
+    private int currentMenuItem = -1;
     private string[] menu_items = new string[] { "Bowl", "Base", "Protein", "Toppings", "Sauce" };
 
     private bool busy = false;
@@ -30,11 +30,11 @@ public class MenuItemsManager : MonoBehaviour {
     {
         if (currentMenuItem + 1 < menu_items.Length)
         {
-            if (currentMenuItem > 0)
+            if (currentMenuItem >= 0)
             {
-                StartCoroutine(ExitMenuItemsRight());
+                StartCoroutine(ExitMenuItems("Right"));
             }
-            StartCoroutine(EnterMenuItemsLeft());
+            StartCoroutine(EnterMenuItems("Left"));
         }
         else
         {
@@ -44,11 +44,10 @@ public class MenuItemsManager : MonoBehaviour {
 
     public void PreviousMenuItems()
     {
-        if (currentMenuItem - 1 > 0)
+        if (currentMenuItem > 0)
         {
-            ExitMenuItemsLeft();
-            currentMenuItem--;
-            EnterMenuItemsRight();
+            StartCoroutine(ExitMenuItems("Left"));
+            StartCoroutine(EnterMenuItems("Right"));
         }
         else
         {
@@ -56,7 +55,54 @@ public class MenuItemsManager : MonoBehaviour {
         }
     }
 
-    private IEnumerator EnterMenuItemsLeft()
+    private IEnumerator EnterMenuItems(string dir)
+    {
+        while (busy)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        busy = true;
+        if (dir == "Left")
+        {
+            currentMenuItem++;
+        }
+        for (int i = 0; i < menu[currentMenuItem].Length; i++)
+        {
+            if (dir == "Left")
+            {
+                StartCoroutine(StartEnterMenuItem(i, dir));
+            }
+
+            if (dir == "Right")
+            {
+                StartCoroutine(StartEnterMenuItem(menu[currentMenuItem].Length - 1 - i, dir));
+            }
+            yield return new WaitForSeconds(0.25f);
+        }
+        busy = false;
+    }
+
+    private IEnumerator StartEnterMenuItem(int i, string dir)
+    {
+        GameObject child = Instantiate(menuItemPrefab);
+        child.transform.parent = transform;
+
+        child.GetComponent<MenuItemManager>().itemPrefab = transform.GetComponent<MenuItemPrefabs>().GetPrefab(menu[currentMenuItem][i]);
+        child.GetComponent<MenuItemManager>().angle = 360 - (360 - 30 * (menu[currentMenuItem].Length - 1)) / 2 - 30 * i;
+
+        if (dir == "Left")
+        {
+            StartCoroutine(child.GetComponent<MenuItemManager>().EnterLeft());
+        }
+        else
+        {
+            child.transform.SetAsFirstSibling();
+            StartCoroutine(child.GetComponent<MenuItemManager>().EnterRight());
+        }
+        yield return null;
+    }
+
+    private IEnumerator ExitMenuItems(string dir)
     {
         while (busy)
         {
@@ -65,53 +111,34 @@ public class MenuItemsManager : MonoBehaviour {
         busy = true;
         for (int i = 0; i < menu[currentMenuItem].Length; i++)
         {
-            StartCoroutine(StartEnterMenuItemLeft(i));
+            if (dir == "Left")
+            {
+                StartCoroutine(StartExitMenuItem(menu[currentMenuItem].Length - 1 - i, dir));
+            }
+
+            if (dir == "Right")
+            {
+                StartCoroutine(StartExitMenuItem(i, dir));
+            }
             yield return new WaitForSeconds(0.25f);
         }
-        currentMenuItem++;
-        busy = false;
-    }
-
-    private IEnumerator StartEnterMenuItemLeft(int i)
-    {
-        GameObject child = Instantiate(menuItemPrefab);
-        child.transform.parent = transform;
-
-        child.GetComponent<MenuItemManager>().itemPrefab = transform.GetComponent<MenuItemPrefabs>().GetPrefab(menu[currentMenuItem][i]);
-        child.GetComponent<MenuItemManager>().angle = 360 - (360 - 30 * (menu[currentMenuItem].Length - 1)) / 2 - 30 * i;
-
-        StartCoroutine(child.GetComponent<MenuItemManager>().EnterLeft());
-        yield return null;
-    }
-
-    private void EnterMenuItemsRight()
-    {
-
-    }
-
-    private void ExitMenuItemsLeft()
-    {
-
-    }
-
-    private IEnumerator ExitMenuItemsRight()
-    {
-        while (busy)
+        if (dir == "Left")
         {
-            yield return new WaitForSeconds(0.1f);
-        }
-        busy = true;
-        for (int i = 0; i < menu[currentMenuItem - 1].Length; i++)
-        {
-            StartCoroutine(StartExitMenuItemRight(i));
-            yield return new WaitForSeconds(0.25f);
+            currentMenuItem--;
         }
         busy = false;
     }
 
-    private IEnumerator StartExitMenuItemRight(int i)
+    private IEnumerator StartExitMenuItem(int i, string dir)
     {
-        StartCoroutine(transform.GetChild(i).GetComponent<MenuItemManager>().ExitRight());
+        if (dir == "Left")
+        {
+            StartCoroutine(transform.GetChild(i).GetComponent<MenuItemManager>().ExitLeft());
+        }
+        else
+        {
+            StartCoroutine(transform.GetChild(i).GetComponent<MenuItemManager>().ExitRight());
+        }
         yield return null;
     }
 

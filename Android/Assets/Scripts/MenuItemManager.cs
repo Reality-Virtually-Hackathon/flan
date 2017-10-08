@@ -34,8 +34,12 @@ public class MenuItemManager : MonoBehaviour {
     public IEnumerator EnterRight()
     {
         Instantiate();
-
-        yield return new WaitForSeconds(0.25f);
+        for (int i = 360; i > angle; i -= 2)
+        {
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(-radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            yield return null;
+        }
     }
 
     public IEnumerator EnterLeft()
@@ -62,7 +66,12 @@ public class MenuItemManager : MonoBehaviour {
 
     public IEnumerator ExitLeft()
     {
-
-        yield return new WaitForSeconds(0.25f);
+        for (int i = angle; i > 0; i -= 2)
+        {
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(-radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }
