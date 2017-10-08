@@ -14,7 +14,7 @@ public class MenuItemManager : MonoBehaviour {
     public bool canAddTwo = true;
 
     public int angle = 0;
-    private int radius = 2;
+    private float radius = 0.5f;
 
     private GameObject item;
 
@@ -29,7 +29,7 @@ public class MenuItemManager : MonoBehaviour {
     {
         item = Instantiate(itemPrefab);
         item.transform.parent = transform;
-        item.transform.localPosition = new Vector3(0, 0, 0);
+        item.transform.position = GameObject.Find("Dish/Capsule").transform.position;
         item.name = item.name.Replace("(Clone)", "");
         item.layer = LayerMask.NameToLayer("Menu Item");
 
