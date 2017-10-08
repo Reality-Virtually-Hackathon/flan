@@ -5,6 +5,7 @@ using UnityEngine;
 public class MenuItemManager : MonoBehaviour {
 
     public GameObject itemPrefab;
+    public string type;
     public float price;
     public int calories;
     public bool canAddTwo = true;

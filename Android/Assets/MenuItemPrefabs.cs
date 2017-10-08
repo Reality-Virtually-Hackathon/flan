@@ -29,12 +29,41 @@ public class MenuItemPrefabs : MonoBehaviour {
     public GameObject ponzuGingerSauce;
     public GameObject soySauce;
 
+    private Dictionary<string, string> types;
     private Dictionary<string, float> prices;
     private Dictionary<string, int> calories;
     private Dictionary<string, GameObject> menuItems;
 
     void Start()
     {
+        types = new Dictionary<string, string>()
+        {
+            { "Small Bowl", "Bowl" },
+            { "Large Bowl", "Bowl" },
+
+            { "Brown Rice", "Base" },
+            { "Vermicelli Noodles", "Base" },
+            { "White Rice", "Base" },
+
+            { "Beef", "Protein" },
+            { "Chicken", "Protein" },
+            { "Tofu", "Protein" },
+
+            { "Carrots", "Toppings" },
+            { "Cucumbers", "Toppings" },
+            { "Do Chua", "Toppings" },
+            { "Jalapenos", "Toppings" },
+            { "Peanuts", "Toppings" },
+            { "Pickled Daikon", "Toppings" },
+            { "Scallions", "Toppings" },
+            { "Sprouts", "Toppings" },
+
+            { "Lime Fish Suace", "Sauce" },
+            { "Peanut Sauce", "Sauce" },
+            { "Ponzu Ginger Sauce", "Sauce" },
+            { "Soy Sauce", "Sauce" }
+        };
+
         prices = new Dictionary<string, float>()
         {
             { "Small Bowl", 2.99f },
@@ -55,7 +84,12 @@ public class MenuItemPrefabs : MonoBehaviour {
             { "Peanuts", 0.99f },
             { "Pickled Daikon", 0.99f },
             { "Scallions", 0.99f },
-            { "Sprouts", 0.99f }
+            { "Sprouts", 0.99f },
+
+            { "Lime Fish Suace", 1.00f },
+            { "Peanut Sauce", 0.50f },
+            { "Ponzu Ginger Sauce", 0.50f },
+            { "Soy Sauce", 0.25f }
         };
 
         calories = new Dictionary<string, int>()
@@ -78,7 +112,12 @@ public class MenuItemPrefabs : MonoBehaviour {
             { "Peanuts", 50 },
             { "Pickled Daikon", 100 },
             { "Scallions", 75 },
-            { "Sprouts", 50 }
+            { "Sprouts", 50 },
+
+            { "Lime Fish Suace", 125 },
+            { "Peanut Sauce", 150 },
+            { "Ponzu Ginger Sauce", 100 },
+            { "Soy Sauce", 125 }
         };
 
         menuItems = new Dictionary<string, GameObject>()
@@ -101,8 +140,18 @@ public class MenuItemPrefabs : MonoBehaviour {
             { "Peanuts", peanuts },
             { "Pickled Daikon", pickledDaikon },
             { "Scallions", scallions },
-            { "Sprouts", sprouts }
+            { "Sprouts", sprouts },
+
+            { "Lime Fish Suace", limeFishSauce },
+            { "Peanut Sauce", peanutSauce },
+            { "Ponzu Ginger Sauce", ponzuGingerSauce },
+            { "Soy Sauce", soySauce }
         };
+    }
+
+    public string GetType(string item)
+    {
+        return types[item];
     }
 
     public float GetPrice(string item)

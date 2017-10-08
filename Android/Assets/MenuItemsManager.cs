@@ -89,6 +89,7 @@ public class MenuItemsManager : MonoBehaviour {
 
         child.GetComponent<MenuItemManager>().itemPrefab = transform.GetComponent<MenuItemPrefabs>().GetPrefab(menu[currentMenuItem][i]);
         child.GetComponent<MenuItemManager>().angle = 360 - (360 - 30 * (menu[currentMenuItem].Length - 1)) / 2 - 30 * i;
+        child.GetComponent<MenuItemManager>().type = transform.GetComponent<MenuItemPrefabs>().GetType(menu[currentMenuItem][i]);
         child.GetComponent<MenuItemManager>().price = transform.GetComponent<MenuItemPrefabs>().GetPrice(menu[currentMenuItem][i]);
         child.GetComponent<MenuItemManager>().calories = transform.GetComponent<MenuItemPrefabs>().GetCalories(menu[currentMenuItem][i]);
 
