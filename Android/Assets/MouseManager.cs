@@ -8,18 +8,15 @@ public class MouseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //RaycastHit hitInfo;
-            //if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
-            //{
-            //    if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Menu Item"))
-            //    {
-            //        string name = hitInfo.transform.parent.gameObject.name;
-            //        Vector3 startPoint = hitInfo.transform.parent.gameObject.transform.position;
-
-            //        hitInfo.transform.parent.gameObject.AddComponent<AddItemToDish>();
-            //    }
-            //}
-            GameObject.Find("Menu Items").GetComponent<MenuItemsManager>().PreviousMenuItems();
+            RaycastHit hitInfo;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
+            {
+                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Menu Item"))
+                {
+                    hitInfo.transform.parent.GetComponent<MenuItemManager>().AddToDish();
+                }
+            }
+            //GameObject.Find("Menu Items").GetComponent<MenuItemsManager>().PreviousMenuItems();
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1))
         {

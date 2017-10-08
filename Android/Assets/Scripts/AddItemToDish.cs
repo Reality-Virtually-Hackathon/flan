@@ -9,62 +9,48 @@ public class AddItemToDish : MonoBehaviour
     private float duration = 1f;
 
     private Vector3 startPoint;
-    private Vector3 midPoint;
+    private Vector3 centerPoint;
     private Vector3 endPoint;
 
     private float startTime;
 
+    private float xRadius;
+    private float yRadius;
+    private float zRadius;
+
     private bool firstHalf = true;
+
+    private float verticalJump = 3f;
 
     private void Start()
     {
         dish = GameObject.Find("Dish");
 
         startPoint = transform.position;
-        midPoint = transform.position / 2 + new Vector3(0, 3, 0) - dish.transform.position;
+        centerPoint = (transform.position - dish.transform.position) / 2;
         endPoint = dish.transform.position;
 
+        xRadius = centerPoint.x;
+        yRadius = verticalJump;
+        zRadius = centerPoint.z;
+
         startTime = Time.time;
+
+        StartCoroutine(Move());
     }
 
-    void Update()
+    public IEnumerator Move()
     {
-        if ((Time.time - startTime) / duration > 1f)
+        for (int i = 180; i > 0; i-=2)
         {
-            if (firstHalf)
-            {
-                transform.position = midPoint;
-                firstHalf = false;
-                startTime = Time.time;
-            }
-            else
-            {
-                if (gameObject.GetComponent<MenuItemManager>().canAddTwo)
-                {
-                    gameObject.GetComponent<AddItemToDish>().enabled = false;
-                    GameObject seconds = Instantiate(gameObject);
-                    Destroy(seconds.GetComponent<AddItemToDish>());
-                    seconds.name = gameObject.name;
-                    seconds.transform.position = startPoint;
-                    seconds.transform.parent = gameObject.transform.parent;
-                    seconds.GetComponent<MenuItemManager>().canAddTwo = false;
-                }
-                transform.position = endPoint;
-                transform.parent = dish.transform;
-                transform.name = transform.name + " - Dish";
-                Destroy(this);
-            }
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(centerPoint.x - xRadius * Mathf.Cos(radians),
+                centerPoint.y + yRadius * Mathf.Sin(radians),
+                centerPoint.z - zRadius * Mathf.Cos(radians));
+            yield return null;
         }
-        else
-        {
-            if (firstHalf)
-            {
-                transform.position = Vector3.Lerp(startPoint, midPoint, (Time.time - startTime) / duration);
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(midPoint, endPoint, (Time.time - startTime) / duration);
-            }
-        }
+        transform.position = endPoint;
+        Destroy(transform.Find("Label").gameObject);
+        Destroy(this);
     }
 }

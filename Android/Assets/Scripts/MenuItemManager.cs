@@ -17,7 +17,7 @@ public class MenuItemManager : MonoBehaviour {
     void Start () {
         if (itemPrefab)
         {
-            //Instantiate();
+            Instantiate();
         }
     }
 
@@ -76,5 +76,19 @@ public class MenuItemManager : MonoBehaviour {
             yield return null;
         }
         Destroy(gameObject);
+    }
+
+    public void AddToDish()
+    {
+        DishManager dishManager = GameObject.Find("Dish").GetComponent<DishManager>();
+        dishManager.AddItem(gameObject.name);
+        gameObject.AddComponent<AddItemToDish>();
+    }
+
+    public void RemoveFromDish()
+    {
+        DishManager dishManager = GameObject.Find("Dish").GetComponent<DishManager>();
+        dishManager.RemoveItem(gameObject.name);
+        //gameObject.AddComponent<RemoveItemFromDish>();
     }
 }
