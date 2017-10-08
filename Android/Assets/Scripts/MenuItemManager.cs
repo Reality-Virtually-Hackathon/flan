@@ -5,18 +5,24 @@ using UnityEngine;
 public class MenuItemManager : MonoBehaviour {
 
     public GameObject itemPrefab;
+    public string type;
+    public float price;
+    public int calories;
     public bool canAddTwo = true;
+
+    public int angle = 0;
+    private int radius = 2;
 
     private GameObject item;
 
     void Start () {
         if (itemPrefab)
         {
-            UpdateInfo();
+            Instantiate();
         }
     }
 
-    public void UpdateInfo()
+    public void Instantiate()
     {
         item = Instantiate(itemPrefab);
         item.transform.parent = transform;
@@ -26,5 +32,64 @@ public class MenuItemManager : MonoBehaviour {
         item.layer = LayerMask.NameToLayer("Menu Item");
 
         gameObject.name = item.name;
+        gameObject.transform.Find("Label").GetComponent<TextMesh>().text = "$" + price + "\n" + calories + " Cal";
+    }
+
+    public IEnumerator EnterRight()
+    {
+        Instantiate();
+        for (int i = 360; i > angle; i -= 2)
+        {
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(-radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            yield return null;
+        }
+    }
+
+    public IEnumerator EnterLeft()
+    {
+        Instantiate();
+        for (int i = 0; i < angle; i+=2)
+        {
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(-radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            yield return null;
+        }
+    }
+
+    public IEnumerator ExitRight()
+    {
+        for (int i = angle; i < 360; i += 2)
+        {
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(-radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            yield return null;
+        }
+        Destroy(gameObject);
+    }
+
+    public IEnumerator ExitLeft()
+    {
+        for (int i = angle; i > 0; i -= 2)
+        {
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(-radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            yield return null;
+        }
+        Destroy(gameObject);
+    }
+
+    public void AddToDish()
+    {
+        DishManager dishManager = GameObject.Find("Dish").GetComponent<DishManager>();
+        dishManager.AddItem(gameObject.name);
+        gameObject.AddComponent<AddItemToDish>();
+    }
+
+    public void RemoveFromDish()
+    {
+        DishManager dishManager = GameObject.Find("Dish").GetComponent<DishManager>();
+        dishManager.RemoveItem(gameObject.name);
+        //gameObject.AddComponent<RemoveItemFromDish>();
     }
 }
