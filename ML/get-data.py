@@ -99,7 +99,6 @@ for i in range (0,25):
     y = np.append(y, my_data[i][8])
     x = np.append(x, my_data[i][:8])
 
-'''
 11: small bowl
 12: large bowl
 brown-rice = 13
@@ -118,3 +117,5 @@ carrots 25
 Jalapenos 26
 Lime Fish Sauce 27
 Pickled Daikon 28
+
+'''
