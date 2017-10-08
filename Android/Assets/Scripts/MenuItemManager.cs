@@ -7,16 +7,19 @@ public class MenuItemManager : MonoBehaviour {
     public GameObject itemPrefab;
     public bool canAddTwo = true;
 
+    public int angle = 0;
+    private int radius = 2;
+
     private GameObject item;
 
     void Start () {
         if (itemPrefab)
         {
-            UpdateInfo();
+            //Instantiate();
         }
     }
 
-    public void UpdateInfo()
+    public void Instantiate()
     {
         item = Instantiate(itemPrefab);
         item.transform.parent = transform;
@@ -26,5 +29,40 @@ public class MenuItemManager : MonoBehaviour {
         item.layer = LayerMask.NameToLayer("Menu Item");
 
         gameObject.name = item.name;
+    }
+
+    public IEnumerator EnterRight()
+    {
+        Instantiate();
+
+        yield return new WaitForSeconds(0.25f);
+    }
+
+    public IEnumerator EnterLeft()
+    {
+        Instantiate();
+        for (int i = 0; i < angle; i+=2)
+        {
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            yield return null;
+        }
+    }
+
+    public IEnumerator ExitRight()
+    {
+        for (int i = angle; i < 360; i += 2)
+        {
+            float radians = i * Mathf.PI / 180f;
+            transform.position = new Vector3(radius * Mathf.Sin(radians), transform.position.y, radius * Mathf.Cos(radians));
+            yield return null;
+        }
+        Destroy(gameObject);
+    }
+
+    public IEnumerator ExitLeft()
+    {
+
+        yield return new WaitForSeconds(0.25f);
     }
 }

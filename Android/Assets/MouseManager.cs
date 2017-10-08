@@ -20,5 +20,9 @@ public class MouseManager : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            GameObject.Find("Menu Items").GetComponent<MenuItemsManager>().NextMenuItems();
+        }
     }
 }
