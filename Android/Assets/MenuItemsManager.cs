@@ -78,7 +78,7 @@ public class MenuItemsManager : MonoBehaviour {
         child.transform.parent = transform;
 
         child.GetComponent<MenuItemManager>().itemPrefab = transform.GetComponent<MenuItemPrefabs>().GetPrefab(menu[currentMenuItem][i]);
-        child.GetComponent<MenuItemManager>().angle = 210 - 30 * i;
+        child.GetComponent<MenuItemManager>().angle = 360 - (360 - 30 * (menu[currentMenuItem].Length - 1)) / 2 - 30 * i;
 
         StartCoroutine(child.GetComponent<MenuItemManager>().EnterLeft());
         yield return null;
