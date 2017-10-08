@@ -15,14 +15,14 @@ public class AddItemToDish : MonoBehaviour
     private float startTime;
 
     private float xRadius;
-    private float yRadius = 3f;
+    private float yRadius = 0.5f;
     private float zRadius;
 
     private bool firstHalf = true;
 
     private void Start()
     {
-        dish = GameObject.Find("Dish");
+        dish = GameObject.Find("Dish/Capsule");
 
         startPoint = transform.position;
         centerPoint = (transform.position - dish.transform.position) / 2;
